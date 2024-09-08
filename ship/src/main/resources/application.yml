@@ -1,0 +1,23 @@
+server:
+  port: 8082
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:29092
+    template:
+      default-topic: officeRoutes
+    consumer:
+      group-id: BoardId
+      auto-offset-reset: latest
+
+application:
+  boards:
+    - name: "Board 1"
+      location: "Port 2"
+      speed: 8
+    - name: "Board 2"
+      location: "Port 2"
+      speed: 10
+    - name: "Board 3"
+      location: "Port 3"
+      speed: 10
