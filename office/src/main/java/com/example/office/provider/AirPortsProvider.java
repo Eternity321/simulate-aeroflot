@@ -29,14 +29,14 @@ public class AirPortsProvider {
         return res.get();
     }
 
-    public AirPort getAirPort(String airPortName){
+    public AirPort getAirPort(String airPortName) {
         return ports.stream()
                 .filter(airPort -> airPort.getName().equals(airPortName))
                 .findFirst()
                 .orElse(new AirPort());
     }
 
-    public RoutePoint getRoutePoint(String airPortName){
+    public RoutePoint getRoutePoint(String airPortName) {
         return new RoutePoint(getAirPort(airPortName));
     }
 }

@@ -16,7 +16,7 @@ public class Route {
     private String boardName;
     private List<RoutePath> path = new ArrayList<>();
 
-    public boolean notAssigned(){
+    public boolean notAssigned() {
         return boardName == null;
     }
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AirPortStateMessage extends Message{
+public class AirPortStateMessage extends Message {
 
     private AirPort airPort;
 

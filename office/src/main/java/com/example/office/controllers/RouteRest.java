@@ -19,8 +19,8 @@ public class RouteRest {
     private final PathService pathService;
     private final WaitingRoutesService waitingRoutesService;
 
-    @PostMapping(path="route")
-    public void addRoute(@RequestBody List<String> routeLocations){
+    @PostMapping(path = "route")
+    public void addRoute(@RequestBody List<String> routeLocations) {
         Route route = pathService.convertLocationsToRoute(routeLocations);
         waitingRoutesService.add(route);
     }

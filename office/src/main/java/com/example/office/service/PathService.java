@@ -15,7 +15,7 @@ import java.util.List;
 public class PathService {
     private final AirPortsProvider airPortsProvider;
 
-    public RoutePath makePath(String from, String to){
+    public RoutePath makePath(String from, String to) {
         return new RoutePath(airPortsProvider.getRoutePoint(from), airPortsProvider.getRoutePoint(to), 0);
     }
 

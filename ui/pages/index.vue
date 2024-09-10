@@ -2,17 +2,17 @@
   <div style="width: 100%; min-height: 100vh; display: inline-flex;">
     <div class="messages">
       <div v-for="(message, ind) in messages" :key="ind" :title="JSON.stringify(message)">
-        <div class="msg" v-if="message.source === 'AIRPORT'">A</div>
-        <div class="msg" v-if="message.source === 'OFFICE' && message.type === 'ROUTE'">&#9758;</div>
-        <div class="msg" v-if="message.source === 'OFFICE' && message.type === 'STATE'">?</div>
-        <div class="msg" v-if="message.source === 'BOARD'">&#9992;</div>
+        <div v-if="message.source === 'AIRPORT'" class="msg">A</div>
+        <div v-if="message.source === 'OFFICE' && message.type === 'ROUTE'" class="msg">&#9758;</div>
+        <div v-if="message.source === 'OFFICE' && message.type === 'STATE'" class="msg">?</div>
+        <div v-if="message.source === 'BOARD'" class="msg">&#9992;</div>
       </div>
     </div>
     <div class="radar">
       <Port v-for="port in ports"
             :key="port.name"
-            :port="port"
-            :clickCallback="addRoute"/>
+            :clickCallback="addRoute"
+            :port="port"/>
 
       <div class="planeArea">
         <Plane v-for="(row, ind) in boards" :key="ind" :level="ind" :plane="row"></Plane>
@@ -21,10 +21,10 @@
 
       <div style="padding: 10px; text-align: center; color: #fff; font-size: 200%;">
         <span v-for="(route, index) in tempRoute">
-          {{route}} <b v-if="index !== tempRoute.length - 1">&rtri;</b>
+          {{ route }} <b v-if="index !== tempRoute.length - 1">&rtri;</b>
         </span>
-        <button @click="submitRoute" v-if="tempRoute.length > 1" class="roundBtn">&check;</button>
-        <button @click="cancelRoute" v-if="tempRoute.length > 0" class="roundBtn">&cross;</button>
+        <button v-if="tempRoute.length > 1" class="roundBtn" @click="submitRoute">&check;</button>
+        <button v-if="tempRoute.length > 0" class="roundBtn" @click="cancelRoute">&cross;</button>
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@ export default {
             this.setBoard(message.board)
           }
           this.messages.unshift(message)
-          if(this.messages.length >10){
+          if (this.messages.length > 10) {
             this.messages.splice(10)
           }
         }
@@ -118,7 +118,7 @@ export default {
       if (existsIndex >= 0) {
         this.boards.splice(existsIndex, 1)
       }
-      if(!board.busy){
+      if (!board.busy) {
         return
       }
       this.boards.push(board)
@@ -152,7 +152,8 @@ export default {
   width: 10%;
   background: #232323;
 }
-.planeArea{
+
+.planeArea {
   position: relative;
   right: 0;
   left: 0;
@@ -160,6 +161,7 @@ export default {
   bottom: 0;
   pointer-events: none;
 }
+
 .radar {
   width: 90%;
   position: relative;
@@ -167,7 +169,8 @@ export default {
   background-size: cover;
   min-height: 100vh;
 }
-.msg{
+
+.msg {
   border-radius: 10px;
   background: white;
   line-height: 40px;

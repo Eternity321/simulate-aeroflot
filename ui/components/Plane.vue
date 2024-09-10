@@ -1,7 +1,10 @@
 <template>
-  <div class="planeBlock" :style="'z-index:'+level">
-    <div class="icon" :style="'left: ' + plane.x + '%; top: ' + plane.y + '%; transform: rotate(' + (plane.angle - 180) + 'deg);'">&#9992;</div>
-    <div class="title" :style="'left: ' + plane.x + '%; top: ' + plane.y + '%;'">{{plane.name}}</div>
+  <div :style="'z-index:'+level" class="planeBlock">
+    <div :style="'left: ' + plane.x + '%; top: ' + plane.y + '%; transform: rotate(' + (plane.angle - 180) + 'deg);'"
+         class="icon">
+      &#9992;
+    </div>
+    <div :style="'left: ' + plane.x + '%; top: ' + plane.y + '%;'" class="title">{{ plane.name }}</div>
   </div>
 </template>
 <script>

@@ -34,7 +34,7 @@ public class RouteDistributeJob {
     private final MessageConverter messageConverter;
 
     @Scheduled(initialDelay = 500, fixedDelay = 2500)
-    private void distribute(){
+    private void distribute() {
         waitingRoutesService.list().stream()
                 .filter(Route::notAssigned)
                 .forEach(route -> {
@@ -46,13 +46,13 @@ public class RouteDistributeJob {
                             .ifPresent(board -> sendBoardToRoute(route, board));
 
 
-                    if(route.notAssigned()){
+                    if (route.notAssigned()) {
                         boardsProvider.getBoards().stream()
                                 .filter(Board::noBusy)
                                 .findFirst()
                                 .ifPresent(board -> {
                                     String currentLocation = board.getLocation();
-                                    if(!currentLocation.equals(startLocation)){
+                                    if (!currentLocation.equals(startLocation)) {
                                         RoutePath routePath = pathService.makePath(currentLocation, startLocation);
                                         route.getPath().add(0, routePath);
                                     }
@@ -62,7 +62,7 @@ public class RouteDistributeJob {
                 });
     }
 
-    private void sendBoardToRoute(Route route, Board board){
+    private void sendBoardToRoute(Route route, Board board) {
         route.setBoardName(board.getName());
         AirPort airPort = airPortsProvider.findAirPortAndRemoveBoard(board.getName());
         board.setLocation(null);

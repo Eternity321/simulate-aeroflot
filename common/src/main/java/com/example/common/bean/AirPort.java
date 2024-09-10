@@ -20,12 +20,12 @@ public class AirPort {
         int ind = boards.indexOf(boardName);
         if (ind >= 0) {
             boards.set(ind, boardName);
-        }else{
+        } else {
             boards.add(boardName);
         }
     }
 
-    public void removeBoard(String boardName){
+    public void removeBoard(String boardName) {
         boards.remove(boardName);
     }
 }

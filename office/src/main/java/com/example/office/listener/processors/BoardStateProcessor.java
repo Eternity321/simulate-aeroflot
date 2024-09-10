@@ -1,7 +1,5 @@
 package com.example.office.listener.processors;
 
-import java.util.Optional;
-
 import com.example.common.bean.AirPort;
 import com.example.common.bean.Board;
 import com.example.common.bean.Route;
@@ -12,13 +10,12 @@ import com.example.common.processor.MessageProcessor;
 import com.example.office.provider.AirPortsProvider;
 import com.example.office.provider.BoardsProvider;
 import com.example.office.service.WaitingRoutesService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Optional;
 
 @Slf4j
 @Component("BOARD_STATE")
@@ -40,12 +37,12 @@ public class BoardStateProcessor implements MessageProcessor<BoardStateMessage> 
         AirPort airPort = airPortsProvider.getAirPort(board.getLocation());
 
         boardsProvider.addBoard(board);
-        if(previousOpt.isPresent() && board.hasRoute() && !previousOpt.get().hasRoute()){
+        if (previousOpt.isPresent() && board.hasRoute() && !previousOpt.get().hasRoute()) {
             Route route = board.getRoute();
             waitingRoutesService.remove(route);
         }
 
-        if (previousOpt.isEmpty() || !board.isBusy() && previousOpt.get().isBusy()){
+        if (previousOpt.isEmpty() || !board.isBusy() && previousOpt.get().isBusy()) {
             airPort.addBoard(board.getName());
             kafkaTemplate.sendDefault(messageConverter.toJson(new AirPortStateMessage(airPort)));
         }
